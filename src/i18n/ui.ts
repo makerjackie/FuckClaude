@@ -97,6 +97,7 @@ export const ui = {
     'ui.voiceReplay': 'Replay voice roast',
     'ui.retest': 'Scan again',
     'ui.start': 'Start scan',
+    'voice.caption': 'Trump says',
     'voice.low': 'Clean scan. Very clean. Almost too clean. No Chinese user detected today. You may stay.',
     'voice.medium':
       'Folks! We found something. Not huge, but suspicious. The timezone is talking, the browser is talking. Maybe a Chinese user. We are watching you.',
@@ -185,6 +186,7 @@ export const ui = {
     'ui.voiceReplay': '重播语音吐槽',
     'ui.retest': '重新扫描',
     'ui.start': '开始检测',
+    'voice.caption': 'Trump says',
     'voice.low': 'Clean scan. Very clean. Almost too clean. No Chinese user detected today. You may stay.',
     'voice.medium':
       'Folks! We found something. Not huge, but suspicious. The timezone is talking, the browser is talking. Maybe a Chinese user. We are watching you.',

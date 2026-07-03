@@ -37,6 +37,16 @@ function setMascot(state: MascotState) {
   q('#mascot')?.setAttribute('data-state', state);
 }
 
+function setTrumpReaction(visible: boolean) {
+  const mascot = q('#mascot');
+  if (!mascot) return;
+  if (visible) {
+    mascot.setAttribute('data-reaction', 'true');
+  } else {
+    mascot.removeAttribute('data-reaction');
+  }
+}
+
 let lastVoiceBand: RiskBand | null = null;
 const audioCache = new Map<RiskBand, HTMLAudioElement>();
 
@@ -86,6 +96,31 @@ function speakReaction(band: RiskBand) {
   window.speechSynthesis.speak(utterance);
 }
 
+function splitVoiceLine(text: string): string[] {
+  return (
+    text
+      .match(/[^.!?]+[.!?]+|[^.!?]+$/g)
+      ?.map((part) => part.trim())
+      .filter(Boolean) ?? [text]
+  );
+}
+
+function renderVoiceLine(el: Element, band: RiskBand) {
+  el.replaceChildren();
+
+  const parts = splitVoiceLine(t(`voice.${band}`));
+  parts.forEach((part, index) => {
+    const span = document.createElement('span');
+    span.className = 'reaction__line';
+    if (index === 0) span.classList.add('reaction__line--lead');
+    if (/FIRED|suspicious|Clean scan|Chinese user detected|watching/i.test(part)) {
+      span.classList.add('reaction__line--punch');
+    }
+    span.textContent = part;
+    el.appendChild(span);
+  });
+}
+
 async function playReaction(band: RiskBand) {
   lastVoiceBand = band;
   const replay = q<HTMLButtonElement>('#voice-replay');
@@ -119,6 +154,7 @@ function setRing(total: number) {
 
 function resetUI() {
   lastVoiceBand = null;
+  setTrumpReaction(false);
   setRing(0);
   const gauge = q('#score-gauge');
   gauge?.removeAttribute('data-band');
@@ -138,7 +174,7 @@ function resetUI() {
     result.removeAttribute('data-band');
   }
   const voiceLine = q('#voice-line');
-  if (voiceLine) voiceLine.textContent = '';
+  if (voiceLine) voiceLine.replaceChildren();
   const replay = q<HTMLButtonElement>('#voice-replay');
   if (replay) replay.hidden = true;
   if ('speechSynthesis' in window) window.speechSynthesis.cancel();
@@ -161,6 +197,7 @@ function resetUI() {
 function finalize(total: number, hits: Hit[]): RiskBand {
   const band = riskBand(total);
   setMascot(band);
+  setTrumpReaction(true);
   q('#score-gauge')?.removeAttribute('data-scanning');
   q('#score-gauge')?.setAttribute('data-band', band);
 
@@ -193,7 +230,7 @@ function finalize(total: number, hits: Hit[]): RiskBand {
   }
   const result = q('#result');
   const voiceLine = q('#voice-line');
-  if (voiceLine) voiceLine.textContent = t(`voice.${band}`);
+  if (voiceLine) renderVoiceLine(voiceLine, band);
   if (result) {
     result.hidden = false;
     result.setAttribute('data-band', band);

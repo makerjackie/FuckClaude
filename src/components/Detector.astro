@@ -83,9 +83,12 @@ const home = lang === 'zh' ? '/zh/' : '/';
       <div class="result" id="result" hidden>
         <p class="result__title" id="result-title"></p>
         <div class="result__hits" id="result-hits"></div>
-        <div class="reaction">
-          <img class="reaction__mascot" src="/mascot/trump-fired.webp" alt="" loading="lazy" decoding="async" />
-          <p class="reaction__bubble" id="voice-line"></p>
+        <div class="reaction" aria-live="polite">
+          <div class="reaction__meta">
+            <span class="reaction__dot" aria-hidden="true"></span>
+            <span>{t('voice.caption')}</span>
+          </div>
+          <blockquote class="reaction__quote" id="voice-line"></blockquote>
         </div>
         <button class="voice-btn" id="voice-replay" type="button" hidden>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
