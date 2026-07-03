@@ -91,6 +91,7 @@ export const ui = {
 
     'footer.disclaimer':
       'Purely for entertainment. Based on public reverse-engineering discussions, not an official statement, not advice, and not a real detection result.',
+    'footer.explore': 'Explore more · 01MVP',
 
     'ui.claudeBadge': 'Claude Same',
     'ui.voiceReplay': 'Replay voice roast',
@@ -178,6 +179,7 @@ export const ui = {
 
     'footer.disclaimer':
       '本站纯属娱乐,基于公开逆向讨论做成,不代表官方结论,不构成建议,也不代表真实检测结果。',
+    'footer.explore': 'Explore more · 01MVP',
 
     'ui.claudeBadge': 'Claude 同款',
     'ui.voiceReplay': '重播语音吐槽',
