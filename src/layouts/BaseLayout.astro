@@ -546,6 +546,67 @@ const jsonLd = {
         gap: 8px;
         justify-content: center;
       }
+      .reaction {
+        width: min(100%, 560px);
+        margin: 18px auto 0;
+        display: grid;
+        grid-template-columns: minmax(92px, 150px) minmax(0, 1fr);
+        gap: 14px;
+        align-items: end;
+        text-align: left;
+        animation: reaction-in 0.38s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+      }
+      .reaction__mascot {
+        width: clamp(94px, 18vw, 150px);
+        max-height: 214px;
+        justify-self: end;
+        object-fit: contain;
+        filter: drop-shadow(0 12px 22px rgba(36, 28, 12, 0.2));
+        transform-origin: 50% 86%;
+        animation: reaction-point 0.72s ease-in-out 0.18s infinite alternate;
+      }
+      .reaction__bubble {
+        position: relative;
+        margin: 0 0 18px;
+        padding: 12px 14px;
+        min-height: 64px;
+        display: flex;
+        align-items: center;
+        color: var(--ink);
+        font-size: 0.93rem;
+        font-weight: 800;
+        line-height: 1.35;
+        border: 1px solid var(--border-strong);
+        border-radius: 14px 14px 14px 5px;
+        background: var(--bg);
+        box-shadow: var(--shadow-sm);
+        animation: bubble-pop 0.36s ease 0.1s both;
+      }
+      .reaction__bubble::before {
+        content: '';
+        position: absolute;
+        left: -8px;
+        bottom: 22px;
+        width: 14px;
+        height: 14px;
+        background: inherit;
+        border-left: 1px solid var(--border-strong);
+        border-bottom: 1px solid var(--border-strong);
+        transform: rotate(45deg);
+      }
+      .result[data-band='low'] .reaction__bubble {
+        border-color: color-mix(in srgb, var(--low) 38%, var(--border));
+        background: color-mix(in srgb, var(--low) 8%, var(--surface));
+      }
+      .result[data-band='medium'] .reaction__bubble {
+        border-color: color-mix(in srgb, var(--medium) 42%, var(--border));
+        background: color-mix(in srgb, var(--medium) 9%, var(--surface));
+      }
+      .result[data-band='high'] .reaction__bubble {
+        color: color-mix(in srgb, var(--high) 72%, var(--ink));
+        border-color: color-mix(in srgb, var(--high) 46%, var(--border));
+        background: color-mix(in srgb, var(--high) 9%, var(--surface));
+      }
       .chip {
         display: inline-flex;
         align-items: center;
@@ -612,6 +673,34 @@ const jsonLd = {
         from {
           opacity: 0;
           transform: translateY(6px) scale(0.96);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      @keyframes reaction-in {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      @keyframes reaction-point {
+        from {
+          transform: rotate(-1.5deg) translateY(0);
+        }
+        to {
+          transform: rotate(1.5deg) translateY(-4px);
+        }
+      }
+      @keyframes bubble-pop {
+        from {
+          opacity: 0;
+          transform: scale(0.96);
         }
         to {
           opacity: 1;
@@ -941,6 +1030,20 @@ const jsonLd = {
         }
         .scan-btn {
           width: 100%;
+        }
+        .reaction {
+          grid-template-columns: 90px minmax(0, 1fr);
+          gap: 10px;
+        }
+        .reaction__mascot {
+          width: 90px;
+          max-height: 150px;
+        }
+        .reaction__bubble {
+          margin-bottom: 10px;
+          min-height: 58px;
+          font-size: 0.82rem;
+          padding: 10px 11px;
         }
       }
 

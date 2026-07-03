@@ -18,7 +18,7 @@ export const ui = {
       'An entertainment-only local joke check for Claude China-user signals. Credits the original FuckClaude idea and runs without uploading results.',
 
     'nav.title': 'Fuck Claude',
-    'nav.githubOriginal': 'Original GitHub repository',
+    'nav.githubOriginal': 'GitHub repository',
     'credit': 'Built with Claude Fable 5',
     'origin.title': 'Original idea credited',
     'origin.body':
@@ -96,12 +96,11 @@ export const ui = {
     'ui.voiceReplay': 'Replay voice roast',
     'ui.retest': 'Scan again',
     'ui.start': 'Start scan',
-    'voice.low':
-      'Beautiful. Tremendous privacy. Almost no China signals, believe me. This is just a joke scan.',
+    'voice.low': 'Clean scan. Very clean. Almost too clean. No Chinese user detected today. You may stay.',
     'voice.medium':
-      'We are seeing some signals. Not the biggest score ever, but people are talking. Check the timezone, check the language.',
+      'Folks! We found something. Not huge, but suspicious. The timezone is talking, the browser is talking. Maybe a Chinese user. We are watching you.',
     'voice.high':
-      'Huge score. The signals are everywhere. But remember, folks, this is comedy, not the real verdict.',
+      "Folks! We found you! You clicked the button, and boom: Chinese user detected. You're FIRED!",
   },
 
   zh: {
@@ -110,7 +109,7 @@ export const ui = {
       '纯娱乐的 Claude 中国用户本地整活检测,鸣谢 FuckClaude 原始创意,检测结果不上传。',
 
     'nav.title': 'Fuck Claude',
-    'nav.githubOriginal': '原始 GitHub 仓库',
+    'nav.githubOriginal': 'GitHub 仓库',
     'credit': '此网站使用 Claude Fable 5 开发',
     'origin.title': '原始创意鸣谢',
     'origin.body':
@@ -184,12 +183,11 @@ export const ui = {
     'ui.voiceReplay': '重播语音吐槽',
     'ui.retest': '重新扫描',
     'ui.start': '开始检测',
-    'voice.low':
-      'Beautiful. Tremendous privacy. Almost no China signals, believe me. This is just a joke scan.',
+    'voice.low': 'Clean scan. Very clean. Almost too clean. No Chinese user detected today. You may stay.',
     'voice.medium':
-      'We are seeing some signals. Not the biggest score ever, but people are talking. Check the timezone, check the language.',
+      'Folks! We found something. Not huge, but suspicious. The timezone is talking, the browser is talking. Maybe a Chinese user. We are watching you.',
     'voice.high':
-      'Huge score. The signals are everywhere. But remember, folks, this is comedy, not the real verdict.',
+      "Folks! We found you! You clicked the button, and boom: Chinese user detected. You're FIRED!",
   },
 } as const;
 

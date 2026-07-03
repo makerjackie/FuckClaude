@@ -11,6 +11,8 @@ const SCAN_STEP_MS = 460;
 const SETTLE_MS = 150;
 const AUDIO_BY_BAND: Partial<Record<RiskBand, string>> = {
   low: '/audio/result-low.mp3',
+  medium: '/audio/result-medium.mp3',
+  high: '/audio/result-high.mp3',
 };
 
 function currentLang(): Lang {
@@ -36,6 +38,37 @@ function setMascot(state: MascotState) {
 }
 
 let lastVoiceBand: RiskBand | null = null;
+const audioCache = new Map<RiskBand, HTMLAudioElement>();
+
+function getReactionAudio(band: RiskBand): HTMLAudioElement | null {
+  const audioSource = AUDIO_BY_BAND[band];
+  if (!audioSource) return null;
+  const cached = audioCache.get(band);
+  if (cached) return cached;
+
+  const audio = new Audio(audioSource);
+  audio.preload = 'auto';
+  audio.volume = 0.9;
+  audioCache.set(band, audio);
+  return audio;
+}
+
+function unlockReactionAudio() {
+  const audio = getReactionAudio('low');
+  if (!audio) return;
+
+  audio.muted = true;
+  void audio
+    .play()
+    .then(() => {
+      audio.pause();
+      audio.currentTime = 0;
+      audio.muted = false;
+    })
+    .catch(() => {
+      audio.muted = false;
+    });
+}
 
 function speakReaction(band: RiskBand) {
   if (!('speechSynthesis' in window)) return;
@@ -58,11 +91,12 @@ async function playReaction(band: RiskBand) {
   const replay = q<HTMLButtonElement>('#voice-replay');
   if (replay) replay.hidden = false;
 
-  const audioSource = AUDIO_BY_BAND[band];
-  if (audioSource) {
+  const audio = getReactionAudio(band);
+  if (audio) {
     try {
-      const audio = new Audio(audioSource);
-      audio.volume = 0.88;
+      audio.pause();
+      audio.currentTime = 0;
+      audio.muted = false;
       await audio.play();
       return;
     } catch {
@@ -99,7 +133,12 @@ function resetUI() {
   if (desc) desc.textContent = '';
 
   const result = q('#result');
-  if (result) result.hidden = true;
+  if (result) {
+    result.hidden = true;
+    result.removeAttribute('data-band');
+  }
+  const voiceLine = q('#voice-line');
+  if (voiceLine) voiceLine.textContent = '';
   const replay = q<HTMLButtonElement>('#voice-replay');
   if (replay) replay.hidden = true;
   if ('speechSynthesis' in window) window.speechSynthesis.cancel();
@@ -153,7 +192,12 @@ function finalize(total: number, hits: Hit[]): RiskBand {
     }
   }
   const result = q('#result');
-  if (result) result.hidden = false;
+  const voiceLine = q('#voice-line');
+  if (voiceLine) voiceLine.textContent = t(`voice.${band}`);
+  if (result) {
+    result.hidden = false;
+    result.setAttribute('data-band', band);
+  }
   return band;
 }
 
@@ -164,6 +208,7 @@ async function run() {
   running = true;
   const btn = q<HTMLButtonElement>('#retest');
   if (btn) btn.disabled = true;
+  unlockReactionAudio();
 
   setMascot('search');
   resetUI();

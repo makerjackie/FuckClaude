@@ -34,7 +34,7 @@ const home = lang === 'zh' ? '/zh/' : '/';
       <LangToggle lang={lang} />
       <a
         class="icon-link"
-        href="https://github.com/LinXiaoTao/FuckClaude"
+        href="https://github.com/makerjackie/FuckClaude"
         target="_blank"
         rel="noopener noreferrer"
         aria-label={t('nav.githubOriginal')}
@@ -83,6 +83,10 @@ const home = lang === 'zh' ? '/zh/' : '/';
       <div class="result" id="result" hidden>
         <p class="result__title" id="result-title"></p>
         <div class="result__hits" id="result-hits"></div>
+        <div class="reaction">
+          <img class="reaction__mascot" src="/mascot/trump-fired.webp" alt="" loading="lazy" decoding="async" />
+          <p class="reaction__bubble" id="voice-line"></p>
+        </div>
         <button class="voice-btn" id="voice-replay" type="button" hidden>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M11 5 6 9H3v6h3l5 4V5Z"></path>
