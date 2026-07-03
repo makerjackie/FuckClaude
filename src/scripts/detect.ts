@@ -84,6 +84,7 @@ function setRing(total: number) {
 }
 
 function resetUI() {
+  lastVoiceBand = null;
   setRing(0);
   const gauge = q('#score-gauge');
   gauge?.removeAttribute('data-band');
@@ -118,7 +119,7 @@ function resetUI() {
   }
 }
 
-function finalize(total: number, hits: Hit[]) {
+function finalize(total: number, hits: Hit[]): RiskBand {
   const band = riskBand(total);
   setMascot(band);
   q('#score-gauge')?.removeAttribute('data-scanning');
@@ -153,7 +154,7 @@ function finalize(total: number, hits: Hit[]) {
   }
   const result = q('#result');
   if (result) result.hidden = false;
-  void playReaction(band);
+  return band;
 }
 
 let running = false;
@@ -204,11 +205,12 @@ async function run() {
     await delay(SETTLE_MS);
   }
 
-  finalize(Math.min(100, total), hits);
+  const finalBand = finalize(Math.min(100, total), hits);
   const label = q('#retest-label');
   if (label) label.textContent = t('ui.retest');
   if (btn) btn.disabled = false;
   running = false;
+  void playReaction(finalBand);
 }
 
 /**
