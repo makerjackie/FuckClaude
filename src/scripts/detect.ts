@@ -4,11 +4,14 @@
  * been checked it shows a verdict plus the list of matched signals.
  * Everything runs locally in the browser.
  */
-import { SIGNALS, riskBand, signalVerdict, type SignalDef } from '../config/signals';
+import { SIGNALS, riskBand, signalVerdict, type RiskBand, type SignalDef } from '../config/signals';
 import { useTranslations, type Lang } from '../i18n/ui';
 
 const SCAN_STEP_MS = 460;
 const SETTLE_MS = 150;
+const AUDIO_BY_BAND: Partial<Record<RiskBand, string>> = {
+  low: '/audio/result-low.mp3',
+};
 
 function currentLang(): Lang {
   return document.documentElement.lang.toLowerCase().startsWith('zh') ? 'zh' : 'en';
@@ -30,6 +33,44 @@ interface Hit {
 type MascotState = 'doze' | 'search' | 'low' | 'medium' | 'high';
 function setMascot(state: MascotState) {
   q('#mascot')?.setAttribute('data-state', state);
+}
+
+let lastVoiceBand: RiskBand | null = null;
+
+function speakReaction(band: RiskBand) {
+  if (!('speechSynthesis' in window)) return;
+  window.speechSynthesis.cancel();
+
+  const utterance = new SpeechSynthesisUtterance(t(`voice.${band}`));
+  utterance.lang = 'en-US';
+  utterance.pitch = band === 'high' ? 0.86 : 0.92;
+  utterance.rate = band === 'low' ? 0.98 : 1.04;
+
+  const voices = window.speechSynthesis.getVoices();
+  const englishVoice = voices.find((voice) => voice.lang.toLowerCase().startsWith('en'));
+  if (englishVoice) utterance.voice = englishVoice;
+
+  window.speechSynthesis.speak(utterance);
+}
+
+async function playReaction(band: RiskBand) {
+  lastVoiceBand = band;
+  const replay = q<HTMLButtonElement>('#voice-replay');
+  if (replay) replay.hidden = false;
+
+  const audioSource = AUDIO_BY_BAND[band];
+  if (audioSource) {
+    try {
+      const audio = new Audio(audioSource);
+      audio.volume = 0.88;
+      await audio.play();
+      return;
+    } catch {
+      // Some browsers block async media playback after the scan animation.
+    }
+  }
+
+  speakReaction(band);
 }
 
 function setRing(total: number) {
@@ -58,6 +99,9 @@ function resetUI() {
 
   const result = q('#result');
   if (result) result.hidden = true;
+  const replay = q<HTMLButtonElement>('#voice-replay');
+  if (replay) replay.hidden = true;
+  if ('speechSynthesis' in window) window.speechSynthesis.cancel();
 
   for (const s of SIGNALS) {
     const row = q(`[data-signal="${s.id}"]`);
@@ -109,6 +153,7 @@ function finalize(total: number, hits: Hit[]) {
   }
   const result = q('#result');
   if (result) result.hidden = false;
+  void playReaction(band);
 }
 
 let running = false;
@@ -172,6 +217,9 @@ async function run() {
  */
 function init() {
   q('#retest')?.addEventListener('click', () => run());
+  q('#voice-replay')?.addEventListener('click', () => {
+    if (lastVoiceBand) void playReaction(lastVoiceBand);
+  });
 }
 
 if (document.readyState === 'loading') {

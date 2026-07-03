@@ -9,7 +9,7 @@ interface Props {
 const { lang, path } = Astro.props;
 const t = useTranslations(lang);
 
-const site = Astro.site ?? new URL('https://fuck-claude.vercel.app');
+const site = Astro.site ?? new URL('https://fuck-claude.01mvp.com');
 const canonical = new URL(path, site).href;
 const enUrl = new URL('/', site).href;
 const zhUrl = new URL('/zh/', site).href;
@@ -20,8 +20,6 @@ const ogLocale = lang === 'zh' ? 'zh_CN' : 'en_US';
 
 const title = t('meta.title');
 const description = t('meta.description');
-
-const GA_ID = 'G-S19V74WZZJ';
 
 const faq = [1, 2, 3, 4].map((i) => ({
   '@type': 'Question',
@@ -37,7 +35,7 @@ const jsonLd = {
       name: t('nav.title'),
       url: canonical,
       description,
-      applicationCategory: 'SecurityApplication',
+      applicationCategory: 'EntertainmentApplication',
       operatingSystem: 'All',
       inLanguage: htmlLang,
       image: ogImage,
@@ -95,17 +93,6 @@ const jsonLd = {
 
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
 
-    <!-- Google tag (gtag.js) -->
-    <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
-    ></script>
-    <script is:inline define:vars={{ GA_ID }}>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag('js', new Date());
-      gtag('config', GA_ID);
-    </script>
   </head>
   <body>
     <slot />
@@ -240,119 +227,6 @@ const jsonLd = {
         color: var(--text);
       }
 
-      /* ---------- sponsors ---------- */
-      .sponsors {
-        background: var(--bg-soft);
-        border-bottom: 1px solid var(--border);
-      }
-      .sponsors__inner {
-        padding-block: 6px 7px;
-      }
-      .sponsors__head {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 12px;
-      }
-      .sponsors__label {
-        font-size: 0.68rem;
-        font-weight: 700;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
-        color: var(--muted-2);
-      }
-      .sponsors__cta {
-        font-size: 0.74rem;
-        color: var(--muted);
-        text-decoration: underline;
-        text-underline-offset: 3px;
-      }
-      .sponsors__cta:hover {
-        color: var(--accent-strong);
-      }
-      .sponsors__list {
-        list-style: none;
-        margin: 1px 0 0;
-        padding: 0;
-      }
-      .sponsors__list li + li {
-        border-top: 1px dashed var(--border-strong);
-      }
-      .sponsor {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        padding: 5px 0;
-        color: var(--muted);
-      }
-      .sponsor:hover {
-        text-decoration: none;
-      }
-      .sponsor__logo {
-        flex: none;
-        display: block;
-        height: 26px;
-        width: auto;
-      }
-      .sponsor__text {
-        flex: 1;
-        margin: 0;
-        font-size: 0.82rem;
-        line-height: 1.4;
-      }
-      .sponsor__text strong {
-        color: var(--text);
-        font-weight: 700;
-        margin-right: 3px;
-      }
-      .sponsor:hover .sponsor__text strong {
-        color: var(--accent-strong);
-      }
-      .sponsor__btn {
-        flex: none;
-        display: inline-flex;
-        align-items: center;
-        gap: 5px;
-        padding: 4px 12px;
-        border-radius: 999px;
-        background: var(--accent-soft);
-        color: var(--accent-strong);
-        font-size: 0.76rem;
-        font-weight: 650;
-        transition:
-          background 0.2s,
-          color 0.2s;
-      }
-      .sponsor:hover .sponsor__btn {
-        background: var(--accent);
-        color: #fff;
-      }
-      .sponsor__btn svg {
-        width: 11px;
-        height: 11px;
-      }
-      @media (max-width: 640px) {
-        .sponsor {
-          display: grid;
-          grid-template-columns: 1fr auto;
-          gap: 3px 10px;
-        }
-        .sponsor__logo {
-          grid-row: 1;
-          grid-column: 1;
-          justify-self: start;
-        }
-        .sponsor__btn {
-          grid-row: 1;
-          grid-column: 2;
-          justify-self: end;
-        }
-        .sponsor__text {
-          grid-row: 2;
-          grid-column: 1 / -1;
-        }
-      }
-
       /* ---------- hero ---------- */
       .hero {
         text-align: center;
@@ -360,11 +234,11 @@ const jsonLd = {
       }
       .hero h1 {
         font-family: var(--serif);
-        font-size: clamp(2rem, 5.2vw, 3.1rem);
+        font-size: 3rem;
         line-height: 1.16;
         margin: 0 auto;
         max-width: 22ch;
-        letter-spacing: -0.01em;
+        letter-spacing: 0;
         font-weight: 700;
       }
       .hero .accent {
@@ -432,6 +306,53 @@ const jsonLd = {
           transform: scale(1.45);
           opacity: 0.55;
         }
+      }
+
+      .origin-note {
+        margin: 0 auto 18px;
+        max-width: 880px;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 14px;
+        align-items: center;
+        padding: 14px 16px;
+        text-align: left;
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+        background: color-mix(in srgb, var(--surface) 88%, var(--bg-soft));
+        box-shadow: var(--shadow-sm);
+      }
+      .origin-note strong {
+        display: block;
+        margin-bottom: 3px;
+        font-size: 0.92rem;
+      }
+      .origin-note p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.86rem;
+        line-height: 1.5;
+      }
+      .origin-note a {
+        font-weight: 700;
+      }
+      .cloudflare-note {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: #f38020;
+        font-size: 0.8rem;
+        font-weight: 700;
+        white-space: nowrap;
+        padding: 8px 10px;
+        border: 1px solid color-mix(in srgb, #f38020 28%, var(--border));
+        border-radius: 999px;
+        background: color-mix(in srgb, #f38020 8%, var(--surface));
+      }
+      .cloudflare-note svg {
+        width: 30px;
+        height: auto;
+        flex: none;
       }
 
       /* ---------- score panel ---------- */
@@ -504,7 +425,7 @@ const jsonLd = {
         font-weight: 700;
         line-height: 1;
         font-variant-numeric: tabular-nums;
-        letter-spacing: -0.02em;
+        letter-spacing: 0;
       }
       .gauge__outof {
         color: var(--muted-2);
@@ -657,6 +578,35 @@ const jsonLd = {
         color: var(--medium);
         border-color: color-mix(in srgb, var(--medium) 40%, transparent);
         background: color-mix(in srgb, var(--medium) 8%, var(--surface));
+      }
+      .voice-btn {
+        margin-top: 14px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        border: 1px solid var(--border-strong);
+        border-radius: 999px;
+        background: var(--bg);
+        color: var(--accent-strong);
+        padding: 8px 14px;
+        font: inherit;
+        font-size: 0.86rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition:
+          border-color 0.2s,
+          background 0.2s,
+          transform 0.12s;
+      }
+      .voice-btn:hover {
+        border-color: color-mix(in srgb, var(--accent) 50%, var(--border-strong));
+        background: var(--accent-soft);
+        transform: translateY(-1px);
+      }
+      .voice-btn svg {
+        width: 17px;
+        height: 17px;
       }
       @keyframes chip-in {
         from {
@@ -965,6 +915,17 @@ const jsonLd = {
       @media (max-width: 560px) {
         .hero {
           padding-top: 22px;
+        }
+        .hero h1 {
+          font-size: 2.1rem;
+        }
+        .origin-note {
+          grid-template-columns: 1fr;
+          text-align: left;
+        }
+        .cloudflare-note {
+          justify-content: center;
+          white-space: normal;
         }
         .panel {
           padding: 24px 16px 20px;

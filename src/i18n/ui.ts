@@ -15,19 +15,21 @@ export const ui = {
   en: {
     'meta.title': 'Fuck Claude | Are You a Claude "China User"?',
     'meta.description':
-      'One-click check of your browser timezone, language, Chinese fonts and locale to see if Claude Code would flag you as a China user. 100% local, nothing uploaded.',
+      'An entertainment-only local joke check for Claude China-user signals. Credits the original FuckClaude idea, removes ads, and runs without uploading results.',
 
     'nav.title': 'Fuck Claude',
+    'nav.githubOriginal': 'Original GitHub repository',
     'credit': 'Built with Claude Fable 5',
+    'origin.title': 'Original idea credited',
+    'origin.body':
+      'This fork keeps the original joke from <a href="https://github.com/LinXiaoTao/FuckClaude" target="_blank" rel="noopener noreferrer">LinXiaoTao/FuckClaude</a>, removes sponsor ads, and deploys on Cloudflare Pages instead of Vercel so users in China can open it more smoothly. It is pure entertainment, not a real Claude or Anthropic verdict.',
+    'origin.cloudflare': 'Deployed on Cloudflare Pages',
 
     'hero.title': 'Are you a Claude “China user”?',
     'hero.badge.local': '100% local scan',
     'hero.badge.noUpload': 'Results never uploaded',
     'hero.badge.openSource': 'Open source',
     'hero.scoreOutOf': '/ 100',
-
-    'sponsors.label': 'Sponsors',
-    'sponsors.cta': 'Want to be listed here?',
 
     'band.low.title': 'Low risk',
     'band.low.desc': '🐶You are not a “Claude China user”🐶',
@@ -81,36 +83,45 @@ export const ui = {
       'Switch your OS timezone away from China zones such as Asia/Shanghai, move zh-CN off the top of your browser language list, and avoid routing Claude Code through proxies whose hostnames contain flagged domains or AI-lab keywords.',
     'faq.q4': 'Is any data uploaded?',
     'faq.a4':
-      'No. Every check runs locally in your browser and none of the detected signals are ever sent anywhere. The site only loads standard Google Analytics for anonymous page-view stats.',
+      'No. Every check runs locally in your browser and none of the detected signals are sent anywhere. This fork does not load sponsor ads or analytics scripts.',
 
     'privacy.title': 'Privacy',
     'privacy.body':
-      'Every check runs locally in your browser — your scan results never leave your device. The site only loads Google Analytics for anonymous page-view stats; none of the detected signals are ever sent.',
+      'Every check runs locally in your browser. Your scan results never leave your device, and this fork does not load sponsor ads or analytics scripts.',
 
     'footer.disclaimer':
-      'For reference only, based on public reverse-engineering reports. Not an official statement or advice.',
+      'Purely for entertainment. Based on public reverse-engineering discussions, not an official statement, not advice, and not a real detection result.',
 
     'ui.claudeBadge': 'Claude Same',
+    'ui.voiceReplay': 'Replay voice roast',
     'ui.retest': 'Scan again',
     'ui.start': 'Start scan',
+    'voice.low':
+      'Beautiful. Tremendous privacy. Almost no China signals, believe me. This is just a joke scan.',
+    'voice.medium':
+      'We are seeing some signals. Not the biggest score ever, but people are talking. Check the timezone, check the language.',
+    'voice.high':
+      'Huge score. The signals are everywhere. But remember, folks, this is comedy, not the real verdict.',
   },
 
   zh: {
     'meta.title': 'Fuck Claude ｜ 你是「Claude 中国用户」吗',
     'meta.description':
-      '一键检测浏览器时区、语言、中文字体与 locale 等信号,评估你是否会被 Claude Code 判定为中国用户并有封号风险。纯本地运行,零数据上传。',
+      '纯娱乐的 Claude 中国用户本地整活检测,鸣谢 FuckClaude 原始创意,移除广告,检测结果不上传。',
 
     'nav.title': 'Fuck Claude',
+    'nav.githubOriginal': '原始 GitHub 仓库',
     'credit': '此网站使用 Claude Fable 5 开发',
+    'origin.title': '原始创意鸣谢',
+    'origin.body':
+      '这个 fork 保留了 <a href="https://github.com/LinXiaoTao/FuckClaude" target="_blank" rel="noopener noreferrer">LinXiaoTao/FuckClaude</a> 的原始整活创意，移除了赞助广告，并改部署到 Cloudflare Pages，不使用 Vercel，主要是为了让国内用户访问更顺。本站纯属娱乐，不代表 Claude 或 Anthropic 的真实检测结果。',
+    'origin.cloudflare': '部署在 Cloudflare Pages',
 
     'hero.title': '你是「Claude 中国用户」吗',
     'hero.badge.local': '纯本地检测',
     'hero.badge.noUpload': '结果零上传',
     'hero.badge.openSource': '开源代码',
     'hero.scoreOutOf': '/ 100',
-
-    'sponsors.label': '赞助商',
-    'sponsors.cta': '想显示在下方？',
 
     'band.low.title': '低风险',
     'band.low.desc': '🐶你不是「Claude 中国用户」🐶',
@@ -160,17 +171,25 @@ export const ui = {
       '把系统时区改出 Asia/Shanghai 等中国时区,把 zh-CN 从浏览器语言列表首位移除,并避免让 Claude Code 走 hostname 含敏感域名 / AI 实验室关键词的中转。',
     'faq.q4': '会上传我的数据吗?',
     'faq.a4':
-      '不会。所有检测都在浏览器本地完成,检测到的任何信号都不会被发送。网站仅加载 Google Analytics 统计匿名访问量。',
+      '不会。所有检测都在浏览器本地完成,检测到的任何信号都不会被发送。这个 fork 不加载赞助广告,也不加载统计脚本。',
 
     'privacy.title': '隐私说明',
     'privacy.body':
-      '所有检测都在你的浏览器本地完成,扫描结果不会离开你的设备。网站仅加载 Google Analytics 统计匿名页面访问量,检测到的信号不会被发送。',
+      '所有检测都在你的浏览器本地完成,扫描结果不会离开你的设备。这个 fork 不加载赞助广告,也不加载统计脚本。',
 
-    'footer.disclaimer': '本工具仅供参考,基于公开逆向分析,不构成任何官方结论或建议。',
+    'footer.disclaimer':
+      '本站纯属娱乐,基于公开逆向讨论做成,不代表官方结论,不构成建议,也不代表真实检测结果。',
 
     'ui.claudeBadge': 'Claude 同款',
+    'ui.voiceReplay': '重播语音吐槽',
     'ui.retest': '重新扫描',
     'ui.start': '开始检测',
+    'voice.low':
+      'Beautiful. Tremendous privacy. Almost no China signals, believe me. This is just a joke scan.',
+    'voice.medium':
+      'We are seeing some signals. Not the biggest score ever, but people are talking. Check the timezone, check the language.',
+    'voice.high':
+      'Huge score. The signals are everywhere. But remember, folks, this is comedy, not the real verdict.',
   },
 } as const;
 

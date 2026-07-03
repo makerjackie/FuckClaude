@@ -1,7 +1,7 @@
 {
   "name": "Fuck Claude — Claude China User Check",
   "short_name": "Fuck Claude",
-  "description": "Check whether Claude Code would flag you as a China user. Runs 100% locally.",
+  "description": "A local, entertainment-only Claude China user joke check. Runs 100% locally.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#FAF9F5",

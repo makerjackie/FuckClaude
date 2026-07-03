@@ -4,7 +4,6 @@ import { SIGNALS } from '../config/signals';
 import LangToggle from './LangToggle.astro';
 import ScoreRing from './ScoreRing.astro';
 import Mascot from './Mascot.astro';
-import Sponsors from './Sponsors.astro';
 import Footer from './Footer.astro';
 
 interface Props {
@@ -38,7 +37,7 @@ const home = lang === 'zh' ? '/zh/' : '/';
         href="https://github.com/LinXiaoTao/FuckClaude"
         target="_blank"
         rel="noopener noreferrer"
-        aria-label="GitHub"
+        aria-label={t('nav.githubOriginal')}
       >
         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
           <path d="M12 .5a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.3-1.8-1.3-1.8-1.1-.7 0-.7 0-.7 1.2 0 1.9 1.2 1.9 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2 0-.4-.5-1.6.2-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.7 18.3 5 18.3 5c.7 1.6.2 2.8.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .5Z"></path>
@@ -48,14 +47,30 @@ const home = lang === 'zh' ? '/zh/' : '/';
   </div>
 </header>
 
-<Sponsors lang={lang} />
-
 <main class="wrap">
   <section class="hero">
     <div class="credit">
       <span class="credit__spark" aria-hidden="true"></span>
       <span class="credit__text">{t('credit')}</span>
     </div>
+
+    <aside class="origin-note" aria-label={t('origin.title')}>
+      <div class="origin-note__copy">
+        <strong>{t('origin.title')}</strong>
+        <p set:html={t('origin.body')}></p>
+      </div>
+      <div class="cloudflare-note">
+        <svg viewBox="0 0 64 40" aria-hidden="true">
+          <path
+            d="M45.4 32.8H15.8a10.7 10.7 0 0 1-.6-21.4A15.5 15.5 0 0 1 44.5 9a11.9 11.9 0 0 1 .9 23.8Z"
+            fill="currentColor"></path>
+          <path
+            d="M47.6 33H35.8a8.5 8.5 0 0 1 8.2-10.7h11.2A7.4 7.4 0 0 1 47.6 33Z"
+            fill="var(--surface)"></path>
+        </svg>
+        <span>{t('origin.cloudflare')}</span>
+      </div>
+    </aside>
 
     <h1>{t('hero.title')}</h1>
 
@@ -68,6 +83,14 @@ const home = lang === 'zh' ? '/zh/' : '/';
       <div class="result" id="result" hidden>
         <p class="result__title" id="result-title"></p>
         <div class="result__hits" id="result-hits"></div>
+        <button class="voice-btn" id="voice-replay" type="button" hidden>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M11 5 6 9H3v6h3l5 4V5Z"></path>
+            <path d="M15.5 8.5a5 5 0 0 1 0 7"></path>
+            <path d="M18.5 5.5a9 9 0 0 1 0 13"></path>
+          </svg>
+          <span>{t('ui.voiceReplay')}</span>
+        </button>
       </div>
     </div>
   </section>
